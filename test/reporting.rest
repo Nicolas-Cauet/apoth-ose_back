@@ -38,17 +38,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwc2V1ZG8iOiJhZG1pb
 ###
 # POST VISITEUR
 
-POST http://localhost:3000/reporting/1
+POST http://localhost:3003/reporting/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwc2V1ZG8iOiJhZG1pbk1haXJpZTIiLCJ0b3duX2hhbGxfaWQiOjEsImlhdCI6MTY1MjI2OTI5MH0.3jwjdh31RvQRYSvBp81TZ8eN1wlgk3zEP-PEJ4v5Kgg
 
 {
-      "title": "COUCOU",
+      "title": "badWords",
       "email": "anthony@gmail.com",
       "phonenumber": "0807060504",
       "first_name": "anthony",
       "last_name": "legrain",
-      "user_text": "HEHOOOOOOOO",
+      "user_text": "hello putain de merde je deteste cette mairie",
       "user_image": "",
       "reporting_category": "animaux"
 }
