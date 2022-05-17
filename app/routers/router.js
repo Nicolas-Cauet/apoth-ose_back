@@ -1,4 +1,6 @@
 const express = require(`express`);
+const handleError = require(`../handlers/handleError`);
+const APIError = require(`../handlers/APIError`);
 const adminController = require(`../controllers/adminController`);
 // const adminControllerArticle = require(`../controllers/adminControllerArticle`)
 const adminReportingController = require(`../controllers/adminReportingController`);
@@ -72,5 +74,7 @@ router.get(`/council/:town_hall_id`, routerWrapper(adminControllerCouncil.allCou
 // router.use((req, res, next) => {
 //   next(new APIError(`Url que vous demander n'existe pas !`, req.url, 404));
 // });
+
+router.use(handleError);
 
 module.exports = router;

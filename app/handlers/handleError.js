@@ -1,21 +1,20 @@
 const APIError = require(`./APIError`);
 
-/**
- * @method handleError
- * @param {Object} err
- * @param {Objetc} req
- * @param {Object} res
- * @returns {String} Returns error message
- */
 const handleError = async (req, res, err) => {
   let myError;
   if (err instanceof APIError) {
+    // err est il une instance d'APIError
     myError = err;
   } else {
+    // si mon erreur n'est pas de type APIError, alors je la transforme
     myError = new APIError(err, req.url);
   }
+
+  // gestion des logs pour la plateforme (pour nous)
   await myError.log();
-  res.status(myError.status).send(myError.message);
+
+  // gestion du retour utilisateur
+  res.status(myError.status).send(myError.stack);
 };
 
 module.exports = handleError;

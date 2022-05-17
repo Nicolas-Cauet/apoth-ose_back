@@ -19,20 +19,19 @@ const adminController = {
    * @param {Object} res
    * @returns void
    */
-  async signup(req, res, next) {
+  async signup(req, res) {
     if (req.body.pseudo === `` || req.body.insee === `` || req.body.password === `` || req.body.email === ``) {
       throw new APIError(`Merci de saisir tous les champs !`);
     }
     const hashPassword = await bcrypt.hash(req.body.password, 10);
-    const townHallId = await dataMapperAdmin.getTownHallId(parseInt(req.body.insee, 10));
+    const townHallId = await dataMapperAdmin.getTownHallId(req.body.insee);
     const existingUser = await dataMapperAdmin.getOneAdmin(req.body.email);
-    debug(existingUser);
     if (existingUser) {
-      next(new APIError(`L'utilisateur existe déja`));
+      throw new APIError(`Impossible d'enregistrer 'l'utilisateur en base !`);
     }
     const userSignup = await dataMapperAdmin
       // eslint-disable-next-line max-len
-      .userSignup(req.body.pseudo, parseInt(req.body.insee, 10), hashPassword, req.body.email, townHallId);
+      .userSignup(req.body.pseudo, req.body.insee, hashPassword, req.body.email, townHallId);
     if (!userSignup.rowCount) {
       throw new APIError(`Impossible d'enregistrer 'l'utilisateur en base !`);
     }
@@ -48,6 +47,9 @@ const adminController = {
    */
   async login(req, res) {
     const existingUser = await dataMapperAdmin.getOneAdmin(req.body.email);
+    if (!existingUser) {
+      throw new APIError(`Impossible de récupérer Administrateur en base !`);
+    }
     const match = await bcrypt.compare(req.body.password, existingUser.password);
     if (match) {
       const data = await dataMapperAdmin.userLogin(req.body.email, existingUser.password);
