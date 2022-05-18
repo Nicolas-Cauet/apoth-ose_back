@@ -2,10 +2,7 @@ require(`dotenv`).config();
 const express = require(`express`);
 const debug = require(`debug`)(`APP`);
 const router = require(`./app/routers/router`);
-<<<<<<< HEAD
-=======
 const handleError = require(`./app/handlers/handleError`);
->>>>>>> main
 const PORT = process.env.PORT || 3333;
 
 const app = express();
