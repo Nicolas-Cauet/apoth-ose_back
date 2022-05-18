@@ -7,5 +7,9 @@ VALUES('Mairie de grisolles','8 rue du Pommelottier','0945784578','Lundi : de 11
 
 INSERT INTO "town_hall" ("name","adress","phonenumber","hourly","insee","email")
 VALUES('mairie de Gandelu','23 bis Grande rue','0323714114','Du lundi au vendredi : de 08h30 à 12h00 de 13h30 à 17h00 Le samedi : de 10h00 à 12h00 (accueil ouvert le samedi uniquement sur rendez-vous)','02810',' mairie-de-gandelu@wanadoo.fr');
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 
 COMMIT;

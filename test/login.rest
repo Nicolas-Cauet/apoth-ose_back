@@ -3,10 +3,10 @@ POST http://localhost:3000/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "pseudo": "pouet",
-    "insee": "02356",
-    "password":"lolo@1234",
-    "email": "cocololo@gmail.com"
+    "pseudo": "helo",
+    "insee":"02350",
+    "password":"Froro123@",
+    "email": "d@gmail.com"
 }
 
 ###
@@ -16,7 +16,7 @@ POST http://localhost:3000/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "ocololo@gmail.com",
-    "password":"lolo@1234"
+    "email": "lolo@gmail.com",
+    "password":"Mamairie"
 }
 

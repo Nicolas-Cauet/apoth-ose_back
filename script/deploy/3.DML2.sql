@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 -- Deploy mamairie:3.DMl2 to pg
+=======
+-- Deploy mamairie:3.DML2 to pg
+>>>>>>> main
 
 BEGIN;
 
@@ -29,7 +33,10 @@ VALUES('Vive la sauscice','Alors là! Permettez-moi de vous dire! Le coup du mys
 INSERT INTO "service"("service_name","phonenumber","adress","email","town_hall_id")
 VALUES('Déchetterie','0120202012','8 place Gerard Durand','decheterie@gmail.com',1);
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> main
 COMMIT;

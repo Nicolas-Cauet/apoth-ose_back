@@ -1,5 +1,4 @@
 const { dataMapperArticle } = require(`../models/dataMapper/index`);
-const APIError = require(`../handlers/APIError`);
 
 /**
  * @type {Object}
@@ -14,15 +13,24 @@ const adminControllerArticle = {
    * @param {Object} res
    * @returns {Array} Return all articles
    */
+<<<<<<< HEAD
   async allArticle(req, res) {
+=======
+  async allArticle(req, res, next) {
+>>>>>>> main
     if (Number(req.params.town_hall_id) !== req.admin.town_hall_id) {
-      throw new APIError(`Impossible de supprimer le signalement !`);
+      const err = new Error(`Vous n'avez pas accès à cette page !`);
+      err.status = 401;
+      next(err);
     }
-    const articles = await dataMapperArticle.getAllArticleAdmin(req.params.town_hall_id);
+    const articles = await dataMapperArticle.getAllArticleAdmin(
+      req.params.town_hall_id,
+    );
     if (articles) {
       res.json(articles).status(200);
     } else {
-      throw new APIError(`Impossible de récupérer la listes des articles`);
+      const err = new Error(`Impossible de récupérer la listes des articles`);
+      next(err);
     }
   },
   /**
@@ -33,12 +41,15 @@ const adminControllerArticle = {
    * @param {Object} res
    * @returns {Object} Return one article
    */
-  async oneArticle(req, res) {
-    const articles = await dataMapperArticle.getOneArticle(req.params.article_id);
+  async oneArticle(req, res, next) {
+    const articles = await dataMapperArticle.getOneArticle(
+      req.params.article_id,
+    );
     if (articles) {
       res.json(articles).status(200);
     } else {
-      throw new APIError(`Impossible de séléctionéel l'article`);
+      const err = new Error(`Impossible de récupérer l'article !`);
+      next(err);
     }
   },
   /** The method allows you to delete an article
@@ -48,16 +59,20 @@ const adminControllerArticle = {
    * @param {Object} res
    * @returns void
    */
-  async deleteArticle(req, res) {
+  async deleteArticle(req, res, next) {
     if (Number(req.params.town_hall_id) !== req.admin.town_hall_id) {
-      throw new APIError(`Impossible de supprimer le signalement !`);
+      const err = new Error(`Vous n'avez pas accès à cette page !`);
+      err.status = 401;
+      next(err);
     }
-    const articles = await dataMapperArticle.deleteArticle(req
-      .params.article_id);
+    const articles = await dataMapperArticle.deleteArticle(
+      req.params.article_id,
+    );
     if (articles.rowCount) {
       res.status(200).send(`Le signalement est bien supprimer !`);
     } else {
-      throw new APIError(`La mise à jour n'est pas possible !`);
+      const err = new Error(`La suppression de l'article n'est pas possible !`);
+      next(err);
     }
   },
   /**
@@ -68,9 +83,11 @@ const adminControllerArticle = {
    * @param {Object} res
    * @return void
    */
-  async modifyArticle(req, res) {
+  async modifyArticle(req, res, next) {
     if (Number(req.params.town_hall_id) !== req.admin.town_hall_id) {
-      throw new APIError(`Impossible de supprimer le signalement !`);
+      const err = new Error(`Vous n'avez pas accès à cette page !`);
+      err.status = 401;
+      next(err);
     }
     const values = {
       title: req.body.title,
@@ -86,7 +103,8 @@ const adminControllerArticle = {
     if (report.rowCount) {
       res.status(200).send(`La mise à jour est bien passée.`);
     } else {
-      throw new APIError(`La mise à jour n'est pas possible !`);
+      const err = new Error(`La mise à jour de l'article n'est pas possible !`);
+      next(err);
     }
   },
   /**
@@ -97,9 +115,11 @@ const adminControllerArticle = {
    * @param {Object} res
    * @returns void
    */
-  async postArticle(req, res) {
+  async postArticle(req, res, next) {
     if (Number(req.params.town_hall_id) !== req.admin.town_hall_id) {
-      throw new APIError(`Impossible de supprimer l'article !`);
+      const err = new Error(`Vous n'avez pas accès à cette page !`);
+      err.status = 401;
+      next(err);
     }
     const values = {
       title: req.body.title,
@@ -115,10 +135,10 @@ const adminControllerArticle = {
     if (report.rowCount) {
       res.status(200).send(`L'article à été poster!`);
     } else {
-      throw new APIError(`La mise à jour n'est pas possible !`);
+      const err = new Error(`Le post de l'article n'est pas possible !`);
+      next(err);
     }
   },
-
 };
 
 module.exports = adminControllerArticle;
